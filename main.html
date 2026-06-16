@@ -9,29 +9,31 @@
     />
     <title>Calculator</title>
   </head>
+  <style>
+    #display {
+      width: 100%;
+      font-size: 1.5rem;
+      text-align: right;
+      padding: 0.5rem;
+    }
+
+    #calculate {
+      width: 100%;
+    }
+  </style>
+
   <body>
     <main class="container" style="max-width: 600px; margin-top: 10vh">
-      <article style="text-align: center; padding: 2rem">
+      <article style="text-align: center; margin-bottom: 2rem">
         <h1>Calculator</h1>
         <p>This is a simple calculator.</p>
       </article>
-      <article>
-        <label for="display" style="text-align: center; margin-bottom: 1rem">
-          Enter the expression:
-        </label>
-        <input
-          type="text"
-          id="display"
-          readonly
-          style="
-            width: 100%;
-            font-size: 1.5rem;
-            text-align: right;
-            padding: 0.5rem;
-          "
-        />
-        <button id="Calculate" style="width: 100%">Calculate</button>
+      <article style="text-align: center; margin-bottom: 2rem">
+        <label for="display" class="display"> Enter the expression: </label>
+        <input type="text" id="display" class="display" />
+        <button id="calculate" class="calculate">Calculate</button>
       </article>
     </main>
+    <script src="main.js"></script>
   </body>
 </html>
