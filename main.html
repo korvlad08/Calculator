@@ -7,20 +7,9 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
+    <link rel="stylesheet" href="style.css" />
     <title>Calculator</title>
   </head>
-  <style>
-    #display {
-      width: 100%;
-      font-size: 1.5rem;
-      text-align: right;
-      padding: 0.5rem;
-    }
-
-    #calculate {
-      width: 100%;
-    }
-  </style>
 
   <body>
     <main class="container" style="max-width: 600px; margin-top: 10vh">
@@ -28,13 +17,43 @@
         <h1>Calculator</h1>
         <p>This is a simple calculator.</p>
       </article>
-      <article style="text-align: center; margin-bottom: 2rem">
+      <article
+        style="
+          text-align: center;
+          margin-bottom: 2rem;
+          max-width: 400px;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      >
         <label for="display" class="display"> Enter the expression: </label>
-        <input type="text" id="display" class="display" />
-        <button id="calculate" class="calculate">Calculate</button>
+        <input id="display" class="in" />
+        <div class="grid">
+          <button id="clear">C</button>
+          <button id="square">x²</button>
+          <button id="sqrt">√</button>
+          <button id="divide">/</button>
+          <button class="num">7</button>
+          <button class="num">8</button>
+          <button class="num">9</button>
+          <button id="multiply">*</button>
+          <button class="num">4</button>
+          <button class="num">5</button>
+          <button class="num">6</button>
+          <button id="minus">-</button>
+          <button class="num">1</button>
+          <button class="num">2</button>
+          <button class="num">3</button>
+          <button id="plus">+</button>
+          <button id="changeSign">+/-</button>
+          <button class="num">0</button>
+          <button id="decimal">.</button>
+          <button id="equals">=</button>
+        </div>
       </article>
       <p id="error" style="color: red"></p>
     </main>
     <script src="script.js"></script>
+    <script src="input.js"></script>
   </body>
 </html>
