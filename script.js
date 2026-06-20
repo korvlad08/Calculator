@@ -4,6 +4,7 @@ const equals = document.getElementById("equals");
 const square = document.getElementById("square");
 const sqrt = document.getElementById("sqrt");
 const clear = document.getElementById("clear");
+const resultDisplay = document.getElementById("result");
 
 let firstNum = null;
 let secondNum = null;
@@ -48,12 +49,12 @@ let equalation = () => {
   }
 
   display.value = formatResult(result);
-
   return result;
 };
 
 clear.addEventListener("click", () => {
   display.value = "0";
+  resultDisplay.textContent = "";
   firstNum = null;
   secondNum = null;
   operator = null;
@@ -66,7 +67,8 @@ operation.forEach((op) => {
 
     if (isOperatorClicked) {
       operator = op.innerText;
-      console.log("Оператор змінено на:", operator);
+      resultDisplay.textContent =
+        resultDisplay.textContent.slice(0, -1) + operator;
       return;
     }
 
@@ -82,28 +84,109 @@ operation.forEach((op) => {
     isOperatorClicked = true;
     operator = op.innerText;
 
-    console.log("Поточний оператор:", operator, "Перше число:", firstNum);
+    if (operator === "*" || operator === "/") {
+      resultDisplay.textContent =
+        "(" + resultDisplay.textContent + ")" + operator;
+    } else {
+      resultDisplay.textContent += operator;
+    }
   });
 });
 
 square.addEventListener("click", () => {
   let currentNum = parseFloat(display.value);
+
   if (!isNaN(currentNum)) {
     result = currentNum * currentNum;
     display.value = formatResult(result);
+
+    let history = resultDisplay.textContent;
+
+    if (history.endsWith(")")) {
+      let depth = 0;
+      let matchIndex = -1;
+
+      for (let i = history.length - 1; i >= 0; i--) {
+        if (history[i] === ")") depth++;
+        if (history[i] === "(") depth--;
+
+        if (depth === 0) {
+          if (i >= 3 && history.substring(i - 3, i) === "sqr") {
+            matchIndex = i - 3;
+          }
+          break;
+        }
+      }
+      if (matchIndex !== -1) {
+        let before = history.substring(0, matchIndex);
+        let lastSqr = history.substring(matchIndex);
+        resultDisplay.textContent = before + "sqrt(" + lastSqr + ")";
+
+        result = null;
+        currentNum = null;
+        return;
+      }
+    }
+
+    let numStr = currentNum.toString();
+
+    if (history.endsWith(numStr)) {
+      history = history.substring(0, history.length - numStr.length);
+    }
+
+    resultDisplay.textContent = history + "sqr(" + currentNum + ")";
   }
+
   result = null;
   currentNum = null;
 });
 
 sqrt.addEventListener("click", () => {
   let currentNum = parseFloat(display.value);
+
   if (!isNaN(currentNum)) {
     result = Math.sqrt(currentNum);
     display.value = formatResult(result);
+
+    let history = resultDisplay.textContent;
+
+    if (history.endsWith(")")) {
+      let depth = 0;
+      let matchIndex = -1;
+
+      for (let i = history.length - 1; i >= 0; i--) {
+        if (history[i] === ")") depth++;
+        if (history[i] === "(") depth--;
+
+        if (depth === 0) {
+          if (i >= 4 && history.substring(i - 4, i) === "sqrt") {
+            matchIndex = i - 4;
+          }
+          break;
+        }
+      }
+      if (matchIndex !== -1) {
+        let before = history.substring(0, matchIndex);
+        let lastSqr = history.substring(matchIndex);
+        resultDisplay.textContent = before + "sqrt(" + lastSqr + ")";
+
+        result = null;
+        currentNum = null;
+        return;
+      }
+    }
+
+    let numStr = currentNum.toString();
+
+    if (history.endsWith(numStr)) {
+      history = history.substring(0, history.length - numStr.length);
+    }
+
+    resultDisplay.textContent = history + "sqrt(" + currentNum + ")";
   }
-  currentNum = null;
+
   result = null;
+  currentNum = null;
 });
 
 equals.addEventListener("click", () => {
@@ -111,4 +194,5 @@ equals.addEventListener("click", () => {
   operator = null;
   firstNum = null;
   secondNum = null;
+  resultDisplay.textContent = "";
 });
