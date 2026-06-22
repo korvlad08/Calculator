@@ -14,6 +14,37 @@
   margin-top: 0.5rem;
   margin-right: 2rem;
   min-height: 1.5em;
+
+  white-space: nowrap;
+  overflow-y: hidden;
+  display: block;
+
+  /* Самий надійний спосіб приховати скрол за замовчуванням */
+  overflow-x: hidden;
+}
+
+/* Коли наводимо курсор на поле з текстом */
+.result:hover {
+  overflow-x: auto; /* Повзунок з'являється тільки при наведенні */
+}
+
+/* Робимо сам повзунок тонким і красивим (за бажанням) */
+.result::-webkit-scrollbar {
+  height: 4px; /* Тоненька лінія */
+}
+
+.result::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.result::-webkit-scrollbar-thumb {
+  background: rgba(
+    128,
+    128,
+    128,
+    0.4
+  ); /* Напівпрозорий сірий колір під колір тексту */
+  border-radius: 4px;
 }
 
 .grid {

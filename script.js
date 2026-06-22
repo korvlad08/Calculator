@@ -100,27 +100,34 @@ square.addEventListener("click", () => {
     result = currentNum * currentNum;
     display.value = formatResult(result);
 
-    let history = resultDisplay.textContent;
+    let history = resultDisplay.textContent.trim();
 
+    // Перевіряємо, чи історія закінчується на закриваючу дужку )
     if (history.endsWith(")")) {
       let depth = 0;
       let matchIndex = -1;
 
+      // Шукаємо відкриваючу дужку поточного блоку
       for (let i = history.length - 1; i >= 0; i--) {
         if (history[i] === ")") depth++;
         if (history[i] === "(") depth--;
 
         if (depth === 0) {
-          if (i >= 3 && history.substring(i - 3, i) === "sqr") {
+          // Знаходимо початок функції перед дужкою (це може бути і sqr, і sqrt)
+          if (i >= 4 && history.substring(i - 4, i) === "sqrt") {
+            matchIndex = i - 4;
+          } else if (i >= 3 && history.substring(i - 3, i) === "sqr") {
             matchIndex = i - 3;
           }
           break;
         }
       }
+
+      // Якщо знайшли попередню функцію, огортаємо її в sqr(...)
       if (matchIndex !== -1) {
         let before = history.substring(0, matchIndex);
-        let lastSqr = history.substring(matchIndex);
-        resultDisplay.textContent = before + "sqrt(" + lastSqr + ")";
+        let innerExpression = history.substring(matchIndex);
+        resultDisplay.textContent = before + "sqr(" + innerExpression + ")";
 
         result = null;
         currentNum = null;
@@ -128,8 +135,8 @@ square.addEventListener("click", () => {
       }
     }
 
+    // Якщо це просто число, обробляємо як раніше
     let numStr = currentNum.toString();
-
     if (history.endsWith(numStr)) {
       history = history.substring(0, history.length - numStr.length);
     }
@@ -148,27 +155,34 @@ sqrt.addEventListener("click", () => {
     result = Math.sqrt(currentNum);
     display.value = formatResult(result);
 
-    let history = resultDisplay.textContent;
+    let history = resultDisplay.textContent.trim();
 
+    // Перевіряємо, чи історія закінчується на закриваючу дужку )
     if (history.endsWith(")")) {
       let depth = 0;
       let matchIndex = -1;
 
+      // Шукаємо відкриваючу дужку поточного блоку
       for (let i = history.length - 1; i >= 0; i--) {
         if (history[i] === ")") depth++;
         if (history[i] === "(") depth--;
 
         if (depth === 0) {
+          // Знаходимо початок функції (так само перевіряємо обидва варіанти)
           if (i >= 4 && history.substring(i - 4, i) === "sqrt") {
             matchIndex = i - 4;
+          } else if (i >= 3 && history.substring(i - 3, i) === "sqr") {
+            matchIndex = i - 3;
           }
           break;
         }
       }
+
+      // Якщо знайшли попередню функцію, огортаємо її в sqrt(...)
       if (matchIndex !== -1) {
         let before = history.substring(0, matchIndex);
-        let lastSqr = history.substring(matchIndex);
-        resultDisplay.textContent = before + "sqrt(" + lastSqr + ")";
+        let innerExpression = history.substring(matchIndex);
+        resultDisplay.textContent = before + "sqrt(" + innerExpression + ")";
 
         result = null;
         currentNum = null;
@@ -176,8 +190,8 @@ sqrt.addEventListener("click", () => {
       }
     }
 
+    // Якщо це просто число, обробляємо як раніше
     let numStr = currentNum.toString();
-
     if (history.endsWith(numStr)) {
       history = history.substring(0, history.length - numStr.length);
     }
