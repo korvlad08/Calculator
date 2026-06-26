@@ -6,7 +6,7 @@ const sqrt = document.getElementById("sqrt");
 const clear = document.getElementById("clear");
 const resultDisplay = document.getElementById("result");
 
-let firstNum = null;
+export let firstNum = null;
 let secondNum = null;
 export let operator = null;
 let result = null;
@@ -75,6 +75,7 @@ operation.forEach((op) => {
     if (!isNaN(currentNum)) {
       if (firstNum === null) {
         firstNum = currentNum;
+        resultDisplay.textContent += firstNum;
       } else if (operator) {
         firstNum = equalation();
         display.value = firstNum;

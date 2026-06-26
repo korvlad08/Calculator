@@ -4,6 +4,7 @@
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 30px;
 }
 
 .result {
@@ -19,18 +20,15 @@
   overflow-y: hidden;
   display: block;
 
-  /* Самий надійний спосіб приховати скрол за замовчуванням */
   overflow-x: hidden;
 }
 
-/* Коли наводимо курсор на поле з текстом */
 .result:hover {
-  overflow-x: auto; /* Повзунок з'являється тільки при наведенні */
+  overflow-x: auto;
 }
 
-/* Робимо сам повзунок тонким і красивим (за бажанням) */
 .result::-webkit-scrollbar {
-  height: 4px; /* Тоненька лінія */
+  height: 4px;
 }
 
 .result::-webkit-scrollbar-track {
@@ -38,15 +36,9 @@
 }
 
 .result::-webkit-scrollbar-thumb {
-  background: rgba(
-    128,
-    128,
-    128,
-    0.4
-  ); /* Напівпрозорий сірий колір під колір тексту */
+  background: rgba(128, 128, 128, 0.4);
   border-radius: 4px;
 }
-
 .grid {
   display: inline-grid;
   grid-template-columns: repeat(4, 80px);
@@ -56,7 +48,96 @@
 .grid button {
   width: 80px;
   height: 80px;
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 30px;
+  border: none;
+
+  background-color: #2a3240;
+  color: #ffffff;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.grid button:hover {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+
+  transform: translateY(-4px);
+
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+}
+
+.grid button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+}
+
+.grid button.operators {
+  background-color: #f59e0b !important;
+  border-color: #f59e0b !important;
+  color: white !important;
+}
+
+/* Ховер для операторів */
+.grid button.operators:hover {
+  background-color: #d97706 !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 10px 20px rgba(217, 119, 6, 0.4);
+}
+
+.grid button#clear {
+  background-color: #ef4444 !important; /* Червоний */
+  border-color: #ef4444 !important;
+  color: white !important;
+}
+
+/* Ховер для кнопки стирання */
+.grid button#clear:hover {
+  background-color: #dc2626 !important;
+  border-color: #dc2626 !important;
+  box-shadow: 0 10px 20px rgba(220, 38, 38, 0.4);
+}
+
+.grid button#equals {
+  background-color: #10b981 !important; /* Зелений */
+  border-color: #10b981 !important;
+  color: white !important;
+}
+
+.grid button#equals:hover {
+  background-color: #059669 !important;
+  border-color: #059669 !important;
+  box-shadow: 0 10px 20px rgba(5, 150, 105, 0.4);
+}
+.grid button#square,
+.grid button#sqrt {
+  background-color: #f59e0b !important;
+  border-color: #f59e0b !important;
+  color: white !important;
+}
+
+.grid button#square:hover,
+.grid button#sqrt:hover {
+  background-color: #d97706 !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 10px 20px rgba(217, 119, 6, 0.4);
+}
+
+[data-theme="dark"] .grid button.num,
+[data-theme="dark"] .grid button#changeSign,
+[data-theme="dark"] .grid button#dot {
+  background-color: #2a3240 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .grid button.num,
+[data-theme="light"] .grid button#changeSign,
+[data-theme="light"] .grid button#dot {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
 }
 
 .in {
@@ -65,4 +146,53 @@
   padding: 100px;
   font-size: 30px;
   text-align: right;
+}
+
+.button {
+  transition: all 0.2s ease-in-out;
+}
+
+button::hover {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+}
+
+.theme-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: auto !important;
+  padding: 10px 15px !important;
+  font-size: 14px !important;
+  z-index: 1000;
+  border: 0px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-btn:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 8px 10px rgba(255, 255, 255, 0.25) !important;
+}
+
+[data-theme="dark"] .theme-btn {
+  background-color: #868686 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .theme-btn:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+[data-theme="light"] .theme-btn {
+  background-color: #868686 !important;
+  color: #000000 !important;
+}
+
+[data-theme="light"] .theme-btn:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }

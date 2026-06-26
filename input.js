@@ -1,4 +1,9 @@
-import { operator, isOperatorClicked, resetOperatorFlag } from "./script.js";
+import {
+  operator,
+  isOperatorClicked,
+  resetOperatorFlag,
+  firstNum,
+} from "./script.js";
 
 const input = document.getElementById("display");
 const buttons = document.querySelectorAll(".num");
@@ -21,7 +26,9 @@ buttons.forEach((button) => {
       );
       input.value = "";
     }
-    if (input.value.length < 15) {
+    if (firstNum === null && input.value.length < 15) {
+      input.value += button.innerText;
+    } else if (input.value.length < 15) {
       input.value += button.innerText;
       resultDisplay.textContent += button.innerText;
     }
